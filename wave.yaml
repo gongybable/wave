@@ -1,0 +1,33 @@
+version: "2"
+services:
+    api:
+        image: wave-api
+        build:
+            context: ./api/
+            dockerfile: docker/Dockerfile
+        networks: 
+            wave:
+                aliases:
+                    - wave-api
+        volumes:
+            - "./api/:/src/"
+        ports:
+            - "8000:8000"
+        container_name: wave-api
+        depends_on:
+            - mysql
+    mysql:
+        image: wave-mysql
+        build:
+            context: ./mysql/
+            dockerfile: docker/Dockerfile
+        networks: 
+            wave:
+                aliases:
+                    - wave-mysql
+        volumes:
+            - "./mysql/:/src/"
+            - "./data/:/var/lib/mysql"
+        container_name: wave-mysql
+networks:
+    wave:
