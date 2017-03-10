@@ -1,7 +1,8 @@
 'use strict';
 
-var express = require('express');
-var kraken = require('kraken-js');
+var express = require('express'),
+    kraken  = require('kraken-js'),
+    mysql   = require('./lib/mysql');
 
 
 var options, app;
@@ -12,10 +13,7 @@ var options, app;
  */
 options = {
     onconfig: function (config, next) {
-        /*
-         * Add any additional config setup or overrides here. `config` is an initialized
-         * `confit` (https://github.com/krakenjs/confit/) configuration object.
-         */
+        mysql.config(config.get('mysqlConfig'), app);
         next(null, config);
     }
 };

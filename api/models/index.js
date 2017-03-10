@@ -10,7 +10,7 @@ self = module.exports = {
      * Otherwise return empty array
      */
     promiseGetReporId: function (id) {
-        mysql.promiseDb().query('SELECT reportId From report WHERE reportId = ?', [id]);
+        return mysql.promiseDb().query('SELECT reportId From report WHERE reportId = ?', [id]);
     },
 
     /**
@@ -20,9 +20,12 @@ self = module.exports = {
      * 2. Insert reportId into table report
      */
     promiseInsertPayrollData: function (csvRows, reportId) {
-        var conn = mysql.newConnection();
+        var conn;
 
-        return conn.beginTransaction().then(function () {
+        return mysql.newConnection().then(function (connection) {
+            conn = connection;
+            return conn.beginTransaction();
+        }).then(function () {
             return conn.query('INSERT INTO report (reportId) Values (?)', [reportId]);
         }).then(function () {
             return conn.query('INSERT INTO payroll VALUES ?', [csvRows]);
@@ -33,5 +36,24 @@ self = module.exports = {
         }).finally(function () {
             return conn.end();
         });
+    },
+
+    /**
+     * @function promiseGetPayrollData
+     * Return the data for the report
+     */
+    promiseGetPayrollData: function () {
+        var query =
+                'SELECT ' +
+                'CASE WHEN DAY(`date`) < 16 ' +
+                    'THEN CONCAT("01/", LPAD(MONTH(`date`), 2, "0"), "/", YEAR(`date`), " - ", "15/", MONTH(`date`), "/", YEAR(`date`)) ' +
+                    'ELSE CONCAT("16/", LPAD(MONTH(`date`), 2, "0"), "/", YEAR(`date`), " - ", RIGHT( LAST_DAY( `date` ), 2), "/", MONTH(`date`), "/", YEAR(`date`)) ' +
+                'END as period, ' +
+                'employeeId as employeeId, ' +
+                'SUM( IF(jobGroup="A", hours*20, hours*30) ) as pay ' +
+                'FROM payroll ' +
+                'GROUP BY period, employeeId ' +
+                'ORDER BY employeeId, SUBSTRING(period, 7, 4), SUBSTRING(period, 4, 2),SUBSTRING(period, 1, 2)';
+        return mysql.promiseDb().query(query);
     }
 };

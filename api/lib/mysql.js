@@ -11,7 +11,7 @@ module.exports = {
     // Get configuration parameters and connect to database.
     config: function (cfg) {
     	conf = cfg;
-        pool =  mysql.createPool(cfg);
+        pool =  mysql.createPool(conf);
     },
 
     // Return the promised connection pool
@@ -26,8 +26,6 @@ module.exports = {
     		user: conf.user,
     		password: conf.password,
     		database: conf.database
-    	}).then(function (conn) {
-    		return conn;
     	});
     }
 };
