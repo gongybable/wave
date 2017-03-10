@@ -1,29 +1,61 @@
 {
-
-    
-
-    
-
-    
-
-    "specialization": {
+    "mysqlConfig": {
+        "user": "wave",
+        "password": "test",
+        "host": "wave-mysql",
+        "database": "wave",
+        "connectionLimit": 3
     },
-
     "middleware": {
-
-        
-
-        "static": {
+        "parseJSON": {
+            "enabled": true,
+            "priority": 40,
+            "route": "/api",
             "module": {
-                "arguments": [ "path:./.build" ]
+                "name": "body-parser",
+                "method": "json"
             }
         },
-
+        "parseURLEncoded": {
+            "enabled": true,
+            "priority": 41,
+            "route": "/api",
+            "module": {
+                "name": "body-parser",
+                "method": "urlencoded",
+                "arguments": [
+                    { "extended": true }
+                ]
+            }
+        },
+        "multipart": {
+            "enabled": true,
+            "priority": 45,
+            "route": "/api",
+            "module": {
+                "name": "kraken-js/middleware/multipart",
+                "arguments": [{
+                  "encoding": "utf-8",
+                  "uploadDir":"/uploads",
+                  "keepExtensions": true,
+                  "multiples": true
+                }]
+            }
+        },
         "router": {
+            "enabled": true,
+            "priority": 50,
+            "route": "/api",
             "module": {
                 "arguments": [{ "directory": "path:./controllers" }]
             }
+        },
+        "errorHandler": {
+            "enabled": true,
+            "priority": 60,
+            "module": {
+                "name": "path:./lib/handle-error.js"
+            }
         }
-
     }
 }

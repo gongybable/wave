@@ -8,11 +8,16 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "bluebird": "^3.4.7",
+    "bunyan": "^1.8.5 ",
     "construx": "^1.0.0",
     "construx-copier": "^1.0.0",
+    "csv-parse": "^1.2.0",
     "eslint": "^1.10.3",
     "express": "^4.12.2",
-    "kraken-js": "^2.0.0"
+    "kraken-js": "^2.0.0",
+    "promise-mysql": "^3.0.0",
+    "z-schema": "^3.18.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
