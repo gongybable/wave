@@ -10,12 +10,12 @@ module.exports = function eslint(grunt) {
             configFile: '.eslintrc',
             rulePaths: ['node_modules/eslint/lib/rules']
         },
-        target: ['index.js',
+        target: [
+            'index.js',
             'server.js',
             'controllers/**/*.js',
             'lib/**/*.js',
-            'models/**/*.js',
-            'public/js/**/*.js'
+            'models/**/*.js'
         ]
     };
 };

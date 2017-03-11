@@ -7,6 +7,7 @@ var fs              = require('fs'),
     promiseFileOpen = Promise.promisify(fs.open),
     promiseFileStat = Promise.promisify(fs.stat);
 
+// read one char from the file a time at the given location
 function readPreviousChar(fd, size, count) {
     if (count >= size) {
         validator.validate({code: 'INVALID_VALUE', message: 'File data invalid'});
@@ -17,9 +18,11 @@ function readPreviousChar(fd, size, count) {
     });
 }
 
+// recursive function to read from the last char until reaches a new line
 function readTilNewLine(fd, size, count, chars) {
     count++;
     return readPreviousChar(fd, size, count).then(function (newChar) {
+        // read the last non-empty line and return the value
         if (newChar === '\n' && count !== 1) {
             return chars;
         }
@@ -29,6 +32,7 @@ function readTilNewLine(fd, size, count, chars) {
 }
 
 module.exports = {
+    // read the last line of the file
     promiseReadLastLine: function promiseReadLastLine(filePath) {
         var size,
             chars = '',

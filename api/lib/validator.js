@@ -24,12 +24,14 @@ module.exports = {
         return validationError(e);
     },
 
+    // validate if the passed in value is integer or not
     isInteger: function(i, e){
         if (!isInt(i)) {
             return validationError({code: 'INVALID_VALUE', message: e});
         }
     },
 
+    // validate if the passed in value is number or not
     isNumber: function(i, e){
         if (isNaN(i)) {
             return validationError({code: 'INVALID_VALUE', message: e});

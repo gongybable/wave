@@ -20,6 +20,8 @@
     "z-schema": "^3.18.2"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-fs": "^1.0.0",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-config-dir": "^0.3.2",
