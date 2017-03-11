@@ -9,7 +9,7 @@
 var logger = require('./logger');
 
 module.exports = function errorHandler() {
-    return function errorHandler(err, req, res, next) {
+    return function errorHandler(err, req, res) {
         var key, error;
 
         logger.warn({
@@ -21,7 +21,7 @@ module.exports = function errorHandler() {
             return res.status(400).json(err.validation);
         }
 
-        error = { code: "INTERNAL_ERROR", path: "#/" };
+        error = { code: 'INTERNAL_ERROR'};
         error.name = err.name;
         error.message = err.message;
         error.stack = err.stack;

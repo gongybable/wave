@@ -43,9 +43,9 @@ function errorSerializer(err) {
 }
 
 logger = bunyan.createLogger({
-    name: "wave",
+    name: 'wave',
     streams: [{
-        level: "info",
+        level: 'info',
         stream: process.stdout
     }],
     serializers: {

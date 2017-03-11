@@ -12,7 +12,7 @@ function readPreviousChar(fd, size, count) {
         validator.validate({code: 'INVALID_VALUE', message: 'File data invalid'});
     }
     var buf = new Buffer(1);
-    return promiseFileRead(fd, buf, 0, 1, size - count).then(function (bytes) {
+    return promiseFileRead(fd, buf, 0, 1, size - count).then(function () {
         return String.fromCharCode(buf[0]);
     });
 }
@@ -31,7 +31,6 @@ function readTilNewLine(fd, size, count, chars) {
 module.exports = {
     promiseReadLastLine: function promiseReadLastLine(filePath) {
         var size,
-            fd,
             chars = '',
             count = 0;
 
@@ -39,7 +38,6 @@ module.exports = {
             size = stat.size;
             return promiseFileOpen(filePath, 'r');
         }).then(function (fd) {
-            fd = fd;
             return readTilNewLine(fd, size, count, chars);
         });
     }

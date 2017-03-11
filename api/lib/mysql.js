@@ -4,13 +4,13 @@
  * Wrapper around mysql-promise. Handles connection to server.
  */
 var mysql  = require('promise-mysql'),
-	conf,
+    conf,
     pool;
 
 module.exports = {
     // Get configuration parameters and connect to database.
     config: function (cfg) {
-    	conf = cfg;
+        conf = cfg;
         pool =  mysql.createPool(conf);
     },
 
@@ -21,11 +21,11 @@ module.exports = {
 
     // Create a new connection for transaction purpose
     newConnection: function() {
-    	return mysql.createConnection({
-    		host: conf.host,
-    		user: conf.user,
-    		password: conf.password,
-    		database: conf.database
-    	});
+        return mysql.createConnection({
+            host: conf.host,
+            user: conf.user,
+            password: conf.password,
+            database: conf.database
+        });
     }
 };

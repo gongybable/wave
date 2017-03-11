@@ -32,8 +32,8 @@ module.exports = {
         var csvdata = [],
             counter = 0;
 
-       	return new Promise(function (resolve, reject) {
-            var readStream  = fs.createReadStream(filePath);
+        return new Promise(function (resolve, reject) {
+            var readStream = fs.createReadStream(filePath);
 
             readStream.pipe(parse({delimiter: ','}))
                 .on('data', function(csvRow){
