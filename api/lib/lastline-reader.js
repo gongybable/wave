@@ -5,10 +5,7 @@ var fs              = require('fs'),
     Promise         = require('bluebird'),
     promiseFileRead = Promise.promisify(fs.read),
     promiseFileOpen = Promise.promisify(fs.open),
-    promiseFileStat = Promise.promisify(fs.stat),
-
-    chars = '',
-    count = 0;
+    promiseFileStat = Promise.promisify(fs.stat);
 
 function readPreviousChar(fd, size, count) {
     if (count >= size) {
@@ -20,28 +17,30 @@ function readPreviousChar(fd, size, count) {
     });
 }
 
-function readTilNewLine(fd, size, count) {
+function readTilNewLine(fd, size, count, chars) {
     count++;
     return readPreviousChar(fd, size, count).then(function (newChar) {
         if (newChar === '\n' && count !== 1) {
             return chars;
         }
         chars = newChar + chars;
-        return readTilNewLine(fd, size, count);
+        return readTilNewLine(fd, size, count, chars);
     });
 }
 
 module.exports = {
     promiseReadLastLine: function promiseReadLastLine(filePath) {
         var size,
-            fd;
+            fd,
+            chars = '',
+            count = 0;
 
         return promiseFileStat(filePath).then(function (stat) {
             size = stat.size;
             return promiseFileOpen(filePath, 'r');
         }).then(function (fd) {
             fd = fd;
-            return readTilNewLine(fd, size, count);
+            return readTilNewLine(fd, size, count, chars);
         });
     }
 };

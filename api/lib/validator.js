@@ -1,6 +1,5 @@
 'use strict';
 
-var self;
 /**
  * Validator library to throw validation errors
  */
@@ -20,20 +19,20 @@ function isInt(value) {
     return Number(value) === x;
 }
 
-self = module.exports = {
+module.exports = {
     validate: function(e) {
         return validationError(e);
     },
 
     isInteger: function(i, e){
         if (!isInt(i)) {
-            return self.validate({code: 'INVALID_VALUE', message: e});
+            return validationError({code: 'INVALID_VALUE', message: e});
         }
     },
 
     isNumber: function(i, e){
         if (isNaN(i)) {
-            return self.validate({code: 'INVALID_VALUE', message: e});
+            return validationError({code: 'INVALID_VALUE', message: e});
         }
     }
 };

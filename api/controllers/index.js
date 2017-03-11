@@ -46,7 +46,6 @@ module.exports = function (router) {
 
         return  lastLineReader.promiseReadLastLine(filePath).then(function (data){
             reportId = data.split(',')[1];
-
             validator.isInteger(reportId, 'File data invalid for \"report id\"');
             reportId = parseInt(reportId);
             return payrollModel.promiseGetReporId(reportId);

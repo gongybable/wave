@@ -1,5 +1,19 @@
 version: "2"
 services:
+    angular:
+        image: wave-angular
+        build:
+            context: "./angular"
+            dockerfile: "docker/Dockerfile"
+        ports:
+         - "3000:3000"
+        networks:
+           wave:
+               aliases:
+                   - wave-angular
+        volumes:
+         - "./angular:/src/"
+        container_name: wave-angular
     api:
         image: wave-api
         build:

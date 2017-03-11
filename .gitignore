@@ -1,1 +1,6 @@
 api/node_modules
+angular/node_modules
+npm-debug.log
+debug.log
+*.js.map
+angular/e2e/**/*.js.map

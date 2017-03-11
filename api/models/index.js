@@ -1,13 +1,12 @@
 'use strict';
 
 var mysql = require('../lib/mysql'),
-    self,
 
     // Constants
     PAY_A = 20,
     PAY_B = 30;
 
-self = module.exports = {
+module.exports = {
     /**
      * @function promiseGetReporId
      * Given a reportId, will return the reportId if exists in database.
