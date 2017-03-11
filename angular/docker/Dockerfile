@@ -8,7 +8,7 @@ ENTRYPOINT ["/bin/entrypoint-angular.sh"]
 RUN apt-get update -y &&\
 	apt-get install -y curl
 RUN apt-get update -y &&\
-	curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - &&\
+	curl -sL https://deb.nodesource.com/setup_7.x | -E bash - &&\
 	apt-get install -y nodejs build-essential
 
 
