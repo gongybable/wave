@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     if (file.length) {
       this.duplicateFile = false;
       this.uploaded = false;
-      console.log(file);
+
       this.service.uploadFile(file).subscribe((res: UploadRes) => {
         if (res.duplicateReportId) {
           this.duplicateFile = true;

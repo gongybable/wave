@@ -27,7 +27,6 @@ var AppComponent = (function () {
         if (file.length) {
             this.duplicateFile = false;
             this.uploaded = false;
-            console.log(file);
             this.service.uploadFile(file).subscribe(function (res) {
                 if (res.duplicateReportId) {
                     _this.duplicateFile = true;

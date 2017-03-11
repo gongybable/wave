@@ -14,7 +14,7 @@ var Rx_1 = require('rxjs/Rx');
 var HttpClient = (function () {
     function HttpClient(http) {
         this.http = http;
-        this.endpoint = 'http://localhost:8000/api/';
+        this.endpoint = 'http://0.0.0.0:8000/api/';
         this.options = new http_1.RequestOptions(new http_1.Headers());
     }
     HttpClient.prototype.getReport = function () {

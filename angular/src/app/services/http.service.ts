@@ -9,7 +9,7 @@ export class HttpClient {
   private options: RequestOptions;
 
   constructor(private http: Http) {
-    this.endpoint = 'http://localhost:8000/api/';
+    this.endpoint = 'http://0.0.0.0:8000/api/';
     this.options = new RequestOptions(new Headers());
   }
 

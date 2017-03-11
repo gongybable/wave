@@ -6,7 +6,7 @@ services:
             context: "./angular"
             dockerfile: "docker/Dockerfile"
         ports:
-         - "3000:3000"
+         - "3000:8000"
         networks:
            wave:
                aliases:
@@ -14,6 +14,7 @@ services:
         volumes:
          - "./angular:/src/"
         container_name: wave-angular
+        hostname: wave-angular
     api:
         image: wave-api
         build:
@@ -26,8 +27,9 @@ services:
         volumes:
             - "./api/:/src/"
         ports:
-            - "8000:8000"
+         - "8000:8000"
         container_name: wave-api
+        hostname: wave-api
         depends_on:
             - mysql
     mysql:
@@ -43,5 +45,6 @@ services:
             - "./mysql/:/src/"
             - "./data/:/var/lib/mysql"
         container_name: wave-mysql
+        hostname: wave-mysql
 networks:
     wave:
