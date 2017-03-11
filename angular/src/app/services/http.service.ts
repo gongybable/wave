@@ -13,10 +13,12 @@ export class HttpClient {
     this.options = new RequestOptions(new Headers());
   }
 
+  // function to send http request to get payroll report
   public getReport(): Observable<any> {
     return this.get(this.endpoint + 'report', this.options);
   }
 
+  // function to send http request to upload file
   public uploadFile(files: File[]): Observable<any> {
     let formData:FormData = new FormData();
 
@@ -25,19 +27,21 @@ export class HttpClient {
     return this.post(this.endpoint + 'upload', formData, this.options);
   }
 
-
+  // function to send http get request
   private get(url: string, options?: RequestOptions): Observable<any> {
     return this.http.get(url, options)
       .map(this.parseResponse)
       .catch(this.handleError);
   }
 
+  // function to send http post request
   private post(url: string, params: {}, options?: RequestOptions): Observable<any> {
     return this.http.post(url, params, options)
       .map(this.parseResponse)
       .catch(this.handleError);
   }
 
+  // response parser
   private parseResponse(resp: Response) {
     if (resp.status >= 200 && resp.status < 300) {
       return resp.json();
@@ -47,6 +51,7 @@ export class HttpClient {
     throw new Error(errMsg);
   }
 
+  // error handler
   private handleError(error: Error) {
     const errMsg = error.message ? error.message : error.toString();
     return Observable.throw(errMsg);
