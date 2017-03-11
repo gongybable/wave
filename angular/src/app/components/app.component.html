@@ -1,0 +1,36 @@
+<div class="container" class="col-md-4">
+  <div *ngIf="uploaded" class="alert alert-success" role="alert" (click)="close()" style="cursor: pointer;">
+    <b>File Uploaded Successfully!</b>
+  </div>
+  <div *ngIf="appError" class="alert alert-danger" role="alert">
+    <b>There is an error in the APP!</b>
+  </div>
+  <div *ngIf="duplicateFile" class="alert alert-danger" role="alert">
+    <b>The report contains a duplicate report ID!</b>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Pay Period</th>
+        <th>Ammount Paid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pay of payroll">
+        <td>{{pay["employeeId"]}}</td>
+        <td>{{pay["period"]}}</td>
+        <td>{{pay["pay"]}}</td>
+      </tr>
+      <tr *ngIf="payroll.length === 0">
+          <td colspan="3">{{'No reports are uploaded.'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <label class="btn btn-lg upload-btn btn-primary">
+    <input id="upload-input" style="display:none;" type="file" (change)="onChange($event)">
+      File Upload
+  </label>
+</div>
