@@ -1,7 +1,11 @@
 'use strict';
 
 var mysql = require('../lib/mysql'),
-    self;
+    self,
+
+    // Constants
+    PAY_A = 20,
+    PAY_B = 30;
 
 self = module.exports = {
     /**
@@ -50,10 +54,10 @@ self = module.exports = {
                     'ELSE CONCAT("16/", LPAD(MONTH(`date`), 2, "0"), "/", YEAR(`date`), " - ", RIGHT( LAST_DAY( `date` ), 2), "/", MONTH(`date`), "/", YEAR(`date`)) ' +
                 'END as period, ' +
                 'employeeId as employeeId, ' +
-                'SUM( IF(jobGroup="A", hours*20, hours*30) ) as pay ' +
+                'SUM( IF(jobGroup="A", hours*?, hours*?) ) as pay ' +
                 'FROM payroll ' +
                 'GROUP BY period, employeeId ' +
                 'ORDER BY employeeId, SUBSTRING(period, 7, 4), SUBSTRING(period, 4, 2),SUBSTRING(period, 1, 2)';
-        return mysql.promiseDb().query(query);
+        return mysql.promiseDb().query(query, [PAY_A, PAY_B]);
     }
 };
