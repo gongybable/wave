@@ -27,18 +27,18 @@ The service module handles the communication between Angular 2 app and API.
 ## API  
 The API is built on top of Kraken.Js. Once the API spins up, it will connects to the Mysql container.  
 When there is a request to the API, it will go through the following middlewares:  
-1. Parser  
+1. **Parser**  
 To parse the req to get the proper arguments.  
-2. Router  
+2. **Router**  
 The controllers that handles the api request.  
-3. Error Handler  
+3. **Error Handler**  
 Response with proper error messages if there is an error.  
   
 There are two routes developed in this API.  
-1. /api/report - GET  
+1. **/api/report - GET**  
 On this route, the controller will do a query in DB to return the payroll reports.  
-2. /api/upload - POST  
-On this route, the controller will:  
+2. **/api/upload - POST**  
+On this route, the controller will:
  1. Validation check to ensure there is a file uploaded  
  2. Read the last line of the file to get the reportId  
   1. If the reportId already exists, response with `duplication: true`  
