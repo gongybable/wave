@@ -8,6 +8,10 @@
 `docker-compose -f wave.yaml up -d`  
 4. Access the App  
 **localhost:3000**  
+5. View Logs  
+`docker logs -f wave-api`  
+`docker logs -f wave-angular`  
+`docker logs -f wave-mysql`  
 
 # Project General Description  
 This application contains three docker contains.  
