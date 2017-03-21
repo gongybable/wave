@@ -9,7 +9,7 @@
 var logger = require('./logger');
 
 module.exports = function errorHandler() {
-    return function errorHandler(err, req, res) {
+    return function errorHandler(err, req, res, next) {
         var key, error;
 
         logger.warn({
